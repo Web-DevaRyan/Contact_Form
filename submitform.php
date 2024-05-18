@@ -6,48 +6,42 @@
 		$email 		= isset($_GET['email']) 	? $_GET['email'] 	: '';
 		$subject 	= isset($_GET['subject']) 	? $_GET['subject'] 	: '';
 		$message 	= isset($_GET['message']) 	? $_GET['message'] 	: '';
+		$ErrMsg 	= '';
 
 		if($fullname == '')
 		{
-			echo "FullName Cannot Be Empty";
-			sleep(2);
-			header("Location: index.php?fullname=$fullname&mobno=$mobno&email=$email&subject=$subject&message=$message");
+			$ErrMsg = "FullName Cannot Be Empty";
+			header("Location: index.php?fullname=$fullname&mobno=$mobno&email=$email&subject=$subject&message=$message&ErrMsg=$ErrMsg");
 		}
 		else if(intval($mobno) == 0 || strlen($mobno) < 10) //Condition to check if mobile no is valid
 		{
-			echo "Invalid Phone Number";
-			sleep(2);
-			header("Location: index.php?fullname=$fullname&mobno=$mobno&email=$email&subject=$subject&message=$message");
+			$ErrMsg = "Invalid Phone Number";
+			header("Location: index.php?fullname=$fullname&mobno=$mobno&email=$email&subject=$subject&message=$message&ErrMsg=$ErrMsg");
 		}
 		else if($mobno[0] < 6)
 		{
-			echo "Phone Number First Digit Cannot Be Less Than 6 According To Indian Format<br>";
-			sleep(2);
-			header("Location: index.php?fullname=$fullname&mobno=$mobno&email=$email&subject=$subject&message=$message");
+			$ErrMsg = "Phone Number First Digit Cannot Be Less Than 6 According To Indian Format";
+			header("Location: index.php?fullname=$fullname&mobno=$mobno&email=$email&subject=$subject&message=$message&ErrMsg=$ErrMsg");
 		}
 		else if($email == '')
 		{
-			echo "Invalid Email";
-			sleep(2);
-			header("Location: index.php?fullname=$fullname&mobno=$mobno&email=$email&subject=$subject&message=$message");
+			$ErrMsg = "Invalid Email";
+			header("Location: index.php?fullname=$fullname&mobno=$mobno&email=$email&subject=$subject&message=$message&ErrMsg=$ErrMsg");
 		}
 		else if(!strpos($email, '.') || !strpos($email, '@')) //condition to check if email id contains '@' and '.'
 		{
-			echo "Invalid Email Format";
-			sleep(2);
-			header("Location: index.php?fullname=$fullname&mobno=$mobno&email=$email&subject=$subject&message=$message");
+			$ErrMsg = "Invalid Email Format";
+			header("Location: index.php?fullname=$fullname&mobno=$mobno&email=$email&subject=$subject&message=$message&ErrMsg=$ErrMsg");
 		}
 		else if($subject == '')
 		{
-			echo "Subject Cannot Be Empty";
-			sleep(2);
-			header("Location: index.php?fullname=$fullname&mobno=$mobno&email=$email&subject=$subject&message=$message");
+			$ErrMsg = "Subject Cannot Be Empty";
+			header("Location: index.php?fullname=$fullname&mobno=$mobno&email=$email&subject=$subject&message=$message&ErrMsg=$ErrMsg");
 		}
 		else if($message == '')
 		{
-			echo "Message Cannot Be Empty";
-			sleep(2);
-			header("Location: index.php?fullname=$fullname&mobno=$mobno&email=$email&subject=$subject&message=$message");
+			$ErrMsg = "Message Cannot Be Empty";
+			header("Location: index.php?fullname=$fullname&mobno=$mobno&email=$email&subject=$subject&message=$message&ErrMsg=$ErrMsg");
 		}
 		else
 		{
@@ -62,13 +56,11 @@
 				// $adminmail = 'aryanbajaj880@gmail.com';
 				// mail($adminmail, $subject, $message);
 				echo "Your Request Is Successfully Submitted.";
-				sleep(2);
 			}
 			else
 			{
-				echo "Database Connection failed";
-				sleep(2);
-				header("Location: index.php?fullname=$fullname&mobno=$mobno&email=$email&subject=$subject&message=$message");
+				$ErrMsg = "Database Connection failed";
+				header("Location: index.php?fullname=$fullname&mobno=$mobno&email=$email&subject=$subject&message=$message&ErrMsg=$ErrMsg");
 			}
 		}
 	}
